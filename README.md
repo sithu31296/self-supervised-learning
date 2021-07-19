@@ -23,13 +23,17 @@ Datasets
 * [ImageNet](https://image-net.org/)
 
 Models
+* [EsViT: Efficient Self-Supervised Vision Transformers](https://arxiv.org/abs/2106.09785)
 * [XCiT: Cross-Covariance Image Transformers](https://arxiv.org/abs/2106.09681v2)
 * [DINO: Emerging Properties in Self-Supervised Vision Transformers](https://arxiv.org/abs/2104.14294v2)
 
 ## Model Comparison
 
-Method | Model | ImageNet Top1 Acc (Linear) | ImageNet Top1 Acc (Linear) | Params (M) | Weights
+Method | Model | ImageNet Top1 Acc (Linear) | ImageNet Top1 Acc (k-NN) | Params (M) | Weights
 --- | --- | --- | --- | --- | ---
+EsViT | Swin-B/W=14 | 81.3 | 79.3 | 87 | N/A
+EsViT | Swin-S/W=14 | 80.8 | 79.1 | 49 | N/A
+EsViT | Swin-T/W=14 | 78.7 | 77.0 | 28 | N/A
 DINO | XCiT-M24/8 | 80.3 | 77.9 | 84 | [model](https://dl.fbaipublicfiles.com/dino/dino_xcit_small_12_p8_pretrain/dino_xcit_small_12_p8_pretrain.pth)/[checkpoint](https://dl.fbaipublicfiles.com/dino/dino_xcit_small_12_p8_pretrain/dino_xcit_small_12_p8_pretrain_full_checkpoint.pth)
 DINO | XCiT-S12/8 | 79.2 | 77.1 | 26 | [model](https://dl.fbaipublicfiles.com/dino/dino_xcit_medium_24_p8_pretrain/dino_xcit_medium_24_p8_pretrain.pth)/[checkpoint](https://dl.fbaipublicfiles.com/dino/dino_xcit_medium_24_p8_pretrain/dino_xcit_medium_24_p8_pretrain_full_checkpoint.pth)
 DINO | ViT-B/8 | 80.1 | 77.4 | 85 | [model](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth)/[checkpoint](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain_full_checkpoint.pth)

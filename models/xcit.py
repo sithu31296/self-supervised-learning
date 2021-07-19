@@ -241,7 +241,7 @@ class XciT(nn.Module):
         self.patch_size = patch_size
 
         
-    def forward(self, x, return_attention=False):
+    def forward(self, x, return_attention=False, return_dense=False):
         B, C, H, W = x.shape
         x, (Hp, Wp) = self.patch_embed(x)   
         pos_encoding = self.pos_embeder(B, Hp, Wp).reshape(B, -1, x.shape[1]).permute(0, 2, 1)  
@@ -259,12 +259,15 @@ class XciT(nn.Module):
                     return blk(x, return_attention=return_attention)
             x = blk(x)
 
-        return self.norm(x[:, 0])
+        x = self.norm(x)
+        if return_dense:
+            return x[:, 0], x[:, 1:]
+        return x[:, 0]
 
 
 if __name__ == '__main__':
     model = XciT('S12')
     model.load_state_dict(torch.load('checkpoints/xcit/dino_xcit_small_12_p8_pretrain.pth', map_location='cpu'))
     x = torch.zeros(1, 3, 224, 224)
-    y = model(x, return_attention=True)
-    print(y.shape)
+    y, y_dense = model(x, return_dense=True)
+    print(y.shape, y_dense.shape)

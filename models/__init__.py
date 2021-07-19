@@ -1,9 +1,11 @@
 from .vit import ViT
 from .xcit import XciT
 from .dino import DINO
+from .esvit import EsViT
 
 methods = {
-    'dino': DINO
+    'dino': DINO,
+    'esvit': EsViT
 }
 
 __all__ = {

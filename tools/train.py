@@ -17,8 +17,7 @@ from datasets.imagenet import ImageNet
 from datasets.transforms import DINOAug
 from models import get_method
 from utils.utils import fix_seeds, time_synchronized, setup_cudnn, setup_ddp
-from utils import get_scheduler
-from utils.loss import DINOLoss
+from utils import get_scheduler, get_loss
 
 
 def main(cfg):
@@ -53,7 +52,7 @@ def main(cfg):
         p.requires_grad = False
 
     # loss function, optimizer, scheduler, AMP scaler, tensorboard writer
-    loss_fn = DINOLoss(cfg['TRAIN']['DINO']['HEAD_DIM'], cfg['TRAIN']['DINO']['LOCAL_CROPS']+2, cfg['TRAIN']['DINO']['WARMUP_TEACHER_TEMP'], cfg['TRAIN']['DINO']['TEACHER_TEMP'], cfg['TRAIN']['DINO']['WARMUP_TEACHER_EPOCHS'], epochs).to(device)
+    loss_fn = get_loss(cfg, epochs).to(device)
     optimizer = SGD(student.parameters(), lr=cfg['TRAIN']['LR'])
     scheduler = get_scheduler(cfg, optimizer)
     scaler = GradScaler(enabled=cfg['TRAIN']['AMP'])

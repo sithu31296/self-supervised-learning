@@ -1,0 +1,51 @@
+DEVICE: cpu                             # device used for training
+SAVE_DIR: './output'                    # output folder name used for saving the trained model and logs
+MODEL_PATH: ''      # trained model path (used for evaluation, inference and optimization)
+
+METHOD: 'esvit'                         # name of the method you are using
+  
+MODEL: 
+  NAME: 'vit'
+  VARIANT: 'B'                          # sub name of the model you are using 
+
+DATASET:
+  NAME: imagenet                        # dataset name
+  ROOT: '../datasets/imagenet'          # dataset root path
+
+TRAIN:
+  IMAGE_SIZE: [224, 224]                # image size used in training the model
+  EPOCHS: 100                           # number of epochs to train
+  BATCH_SIZE: 8                         # batch size used to train
+  WORKERS: 8                            # number of workers used in training dataloader
+  LR: 0.01                              # initial learning rate used in optimizer
+  DECAY: 0.0005                         # decay rate use in optimizer
+  LOSS: ddinoloss                        # loss function name (vanilla, label_smooth, soft_target)
+  DINO:
+    CROP_SCALE: 0.4
+    LOCAL_CROPS: 10
+    HEAD_DIM: 65536
+    TEACHER_TEMP: 0.07
+    WARMUP_TEACHER_TEMP: 0.04
+    WARMUP_TEACHER_EPOCHS: 30
+    TEACHER_MOMENTUM: 0.996
+  SCHEDULER:
+    NAME: steplr
+    PARAMS: (30, 0.1)
+  EVAL_INTERVAL: 20                     # interval to evaluate the model during training
+  SEED: 123                             # random seed number
+  AMP: false                            # use Automatic Mixed Precision training or not
+  DDP: false
+
+EVAL:
+  IMAGE_SIZE: [224, 224]                # evaluation image size
+  BATCH_SIZE: 8                         # evaluation batch size
+  WORKERS: 4                            # number of workers used in evalaution dataloader
+  NUM_CLASSES: 1000
+  KNN:
+    NB_KNN: [10, 20, 100, 200]          # number of NN to use, 20 is usually the best
+    TEMP: 0.07                          # temperature used in voting coefficient
+    
+TEST:
+  MODE: image                           # inference mode (image)
+  FILE: 'test_imgs'                     # filename or foldername (image mode)
+  IMAGE_SIZE: [480, 480]                # inference image size

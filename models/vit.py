@@ -174,7 +174,7 @@ class ViT(nn.Module):
         return torch.cat((class_pos_embed.unsqueeze(0), patch_pos_embed), dim=1)
 
 
-    def forward(self, x: Tensor, return_attention=False) -> Tensor:
+    def forward(self, x: Tensor, return_attention=False, return_dense=False) -> Tensor:
         B, C, W, H = x.shape
         x = self.patch_embed(x)             
         cls_token = self.cls_token.expand(x.shape[0], -1, -1)
@@ -187,11 +187,15 @@ class ViT(nn.Module):
                     return blk(x, return_attention=return_attention)[:, :, 0, :]
             x = blk(x)
 
-        return self.norm(x[:, 0])
+        x = self.norm(x)
+        if return_dense:
+            return x[:, 0], x[:, 1:]
+        return x[:, 0]
         
 
 if __name__ == '__main__':
-    model = ViT('B')
-    model.load_state_dict(torch.load('checkpoints/vit/dino_vitbase8_pretrain.pth', map_location='cpu'))
+    model = ViT('S')
+    # model.load_state_dict(torch.load('checkpoints/vit/dino_vitbase8_pretrain.pth', map_location='cpu'))
     x = torch.zeros(1, 3, 224, 224)
-    print(model(x, return_attention=True).shape)
+    y, y_dense = model(x, return_dense=True)
+    print(y.shape, y_dense.shape)

@@ -1,8 +1,19 @@
 from .schedulers import *
+from .loss import *
 
 schs = {
     "steplr": StepLR
 }
+
+losses = {
+    "dinoloss": DINOLoss,
+    "ddinoloss": DDINOLoss
+}
+
+def get_loss(cfg, epochs):
+    loss_fn_name = cfg['TRAIN']['LOSS']
+    assert loss_fn_name in losses.keys()
+    return losses[loss_fn_name](cfg['TRAIN']['DINO']['HEAD_DIM'], cfg['TRAIN']['DINO']['LOCAL_CROPS']+2, cfg['TRAIN']['DINO']['WARMUP_TEACHER_TEMP'], cfg['TRAIN']['DINO']['TEACHER_TEMP'], cfg['TRAIN']['DINO']['WARMUP_TEACHER_EPOCHS'], epochs)
 
 
 def get_scheduler(cfg, optimizer):

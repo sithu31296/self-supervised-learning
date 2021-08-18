@@ -16,18 +16,14 @@ https://lilianweng.github.io/lil-log/2019/11/10/self-supervised-learning.html
 https://vimeo.com/390347111
 --->
 
-
-## Features
-
-Datasets
-* [ImageNet](https://image-net.org/)
-
 Models
-* [EsViT: Efficient Self-Supervised Vision Transformers](https://arxiv.org/abs/2106.09785)
-* [XCiT: Cross-Covariance Image Transformers](https://arxiv.org/abs/2106.09681v2)
-* [DINO: Emerging Properties in Self-Supervised Vision Transformers](https://arxiv.org/abs/2104.14294v2)
 
-## Model Comparison
+* [EsViT](https://arxiv.org/abs/2106.09785)
+* [XCiT](https://arxiv.org/abs/2106.09681v2)
+* [DINO](https://arxiv.org/abs/2104.14294v2)
+* [MoCov3](https//arxiv.org/abs/2104.02057)
+
+## Model Zoo
 
 Method | Model | ImageNet Top1 Acc (Linear) | ImageNet Top1 Acc (k-NN) | Params (M) | Weights
 --- | --- | --- | --- | --- | ---
@@ -38,6 +34,8 @@ DINO | XCiT-M24/8 | 80.3 | 77.9 | 84 | [model](https://dl.fbaipublicfiles.com/di
 DINO | XCiT-S12/8 | 79.2 | 77.1 | 26 | [model](https://dl.fbaipublicfiles.com/dino/dino_xcit_medium_24_p8_pretrain/dino_xcit_medium_24_p8_pretrain.pth)/[checkpoint](https://dl.fbaipublicfiles.com/dino/dino_xcit_medium_24_p8_pretrain/dino_xcit_medium_24_p8_pretrain_full_checkpoint.pth)
 DINO | ViT-B/8 | 80.1 | 77.4 | 85 | [model](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth)/[checkpoint](https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain_full_checkpoint.pth)
 DINO | ViT-S/8 | 79.7 | 78.3 | 21 | [model](https://dl.fbaipublicfiles.com/dino/dino_deitsmall8_pretrain/dino_deitsmall8_pretrain.pth)/[checkpoint](https://dl.fbaipublicfiles.com/dino/dino_deitsmall8_pretrain/dino_deitsmall8_pretrain_full_checkpoint.pth)
+MoCov3 | ViT-B | 76.7 | - | - | N/A
+MoCov3 | ViT-S | 73.2 | - | - | N/A
 
 ## Configuration 
 
